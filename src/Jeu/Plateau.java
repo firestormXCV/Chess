@@ -1,4 +1,4 @@
-package Jeu;
+package Jeu;	
 
 public class Plateau {
 	
