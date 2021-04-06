@@ -29,11 +29,11 @@ public abstract class PieceAbs implements Piece {
 	}
 	
 	@Override
-	public void deplacer(int[] position) {
-		if (possibleDeplacement(position)) {
-			setPosition(position);
+	public void deplacer(int[] position)  {//throw
+		if (!verifDeplacement(position)) {
+			//throw exception			
 		}
-		//else throw exception
+		setPosition(position);
 			
 			
 	}
@@ -42,11 +42,12 @@ public abstract class PieceAbs implements Piece {
 		return position;
 	}
 
-	public void setPosition(int[] position) {
+	private void setPosition(int[] position) {
 		this.position = position;
 	}
-
-	public boolean possibleDeplacement(int x, int y) {
+	
+	@Override
+	public boolean verifDeplacement(int[] position) {
 		
 		return true;
 	}
