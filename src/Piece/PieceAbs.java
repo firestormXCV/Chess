@@ -14,14 +14,9 @@ public abstract class PieceAbs implements Piece {
 		this.couleur = couleur;
 		this.nom = nom.toLowerCase();
 				
-		this.position[1] = positionInit[1];
-		this.position[2] = positionInit[2];
-		
-		this.attaque[1] = attaque[1];
-		this.attaque[2] = attaque[2];					//voir si il y a pas moyen de faire ca en 1 ligne au lieu de 2
-		
-		this.deplacement[1] = deplacement[1];
-		this.deplacement[2] = deplacement[2];
+		this.position = positionInit;
+		this.attaque = attaque;
+		this.deplacement = deplacement;
 	}
 	
 	
@@ -31,5 +26,28 @@ public abstract class PieceAbs implements Piece {
 			return this.nom.toUpperCase();
 		else 
 			return this.nom.toLowerCase();
+	}
+	
+	@Override
+	public void deplacer(int[] position) {
+		if (possibleDeplacement(position)) {
+			setPosition(position);
+		}
+		//else throw exception
+			
+			
+	}
+		
+	public int[] getPosition() {
+		return position;
+	}
+
+	public void setPosition(int[] position) {
+		this.position = position;
+	}
+
+	public boolean possibleDeplacement(int x, int y) {
+		
+		return true;
 	}
 }
