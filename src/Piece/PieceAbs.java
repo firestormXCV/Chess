@@ -1,22 +1,28 @@
 package Piece;
 
-public abstract class PieceAbs implements Piece {	
+public abstract class PieceAbs implements IPiece {	
 	
 	private Couleur couleur;
 	private String nom;
-	private int[] position = new int [2];
-	private int[] deplacement = new int [2];
-	private int[] attaque = new int [2];
+	private int positionX;
+	private int positionY;
+	private int deplacement1;
+	private int deplacement2;
+
 	
-	public PieceAbs(Couleur couleur, String nom, int positionInit[], int deplacement[], int attaque[]) {
-		assert(positionInit.length == 2 && deplacement.length == 2 && attaque.length == 2 && nom.length() == 1); //a virer ou faire un throw exception
+	public PieceAbs(Couleur couleur, String nom, int positionInitX, int positionInitY, int deplacement1, int deplacement2) {
+
 		
 		this.couleur = couleur;
 		this.nom = nom.toLowerCase();
 				
-		this.position = positionInit;
-		this.attaque = attaque;
-		this.deplacement = deplacement;
+		this.deplacement1 = deplacement2;
+		this.deplacement2 = deplacement1;
+		this.positionX = positionInitX;
+		this.positionY = positionInitY;
+		
+		if (couleur == Couleur.blanc) 
+			nom = nom.toUpperCase();
 	}
 	
 	
@@ -29,25 +35,30 @@ public abstract class PieceAbs implements Piece {
 	}
 	
 	@Override
-	public void deplacer(int[] position)  {//throw
-		if (!verifDeplacement(position)) {
+	public void deplacer(int posX, int posY)  {//throw
+		if (!verifDeplacement(posX, posY)) {
 			//throw exception			
 		}
-		setPosition(position);
+		setPosition(posX, posY);
 			
 			
 	}
 		
-	public int[] getPosition() {
-		return position;
+	public int getPositionX() {
+		return positionX;
+	}
+	
+	public int getPositionY() {
+		return positionY;
 	}
 
-	private void setPosition(int[] position) {
-		this.position = position;
+	protected void setPosition(int posX, int posY) {				//DEMANDER POUR CA//
+		this.positionX = posX;
+		this.positionY = posY;
 	}
 	
 	@Override
-	public boolean verifDeplacement(int[] position) {
+	public boolean verifDeplacement(int posX, int posY) {
 		
 		return true;
 	}

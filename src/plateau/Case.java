@@ -1,4 +1,4 @@
- package Jeu;
+ package plateau;
 
 public class Case {
 	
