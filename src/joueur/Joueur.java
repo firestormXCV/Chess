@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import Piece.Couleur;
 import Piece.IPiece;
+import Piece.Roi;
+import Piece.Tour;
 
 public class Joueur implements IJoueur {
 	
@@ -14,11 +16,12 @@ public class Joueur implements IJoueur {
 	public Joueur(String nom, Couleur couleur) {
 		this.nom = nom;
 		this.couleur = couleur;
-		if (couleur == Couleur.blanc) {
-			
-		}else {
-			
-		}
+		this.PionEnJeu = new ArrayList<IPiece>();
+		
+			PionEnJeu.add(new Roi(couleur));
+			PionEnJeu.add(new Tour(couleur, false));
+			PionEnJeu.add(new Tour(couleur, true));
+		
 	}
 	
 	

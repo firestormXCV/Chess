@@ -9,7 +9,7 @@ public class Echequier {
 	
 	public Echequier () {
 		
-		for (int lig =0; lig < nbLignesPlateau; ++lig)
+		for (int lig = 0; lig < nbLignesPlateau; ++lig)
 			for(int col = 0; col < nbColonnesPlateau; ++ col)
 				damier[lig][col] = new Case();
 	}

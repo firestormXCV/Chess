@@ -2,15 +2,16 @@
 
 public class Case {
 	
-	private boolean occupe; 	//Est ce qu'une piece occupe la case
+	private String occupe; 	//Est ce qu'une piece occupe la case
 	private boolean menace; 	//Est ce qu'une piece adverse menace la case
+
 	
 	public Case() {
-		this.setOccupe(false);
+		this.setOccupe(" ");
 		this.setMenace(false);
 	}
 
-	public boolean getOccupe() {
+	public String getOccupe() {
 		return occupe;
 	}
 	
@@ -18,7 +19,7 @@ public class Case {
 		return menace;
 	}
 
-	public void setOccupe(boolean occupe) {
+	public void setOccupe(String occupe) {
 		this.occupe = occupe;
 	}
 

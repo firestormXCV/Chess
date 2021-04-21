@@ -7,11 +7,11 @@ public class Roi extends PieceAbs {
 	private final static int DiffEntreBlancNoir = 7;
 	private final static int RoiMobilite1 = 1;
 	private final static int RoiMobilite2 = 1;
+	private final static String RoiNom = "r";
 	
-	
-	public Roi(Couleur couleur, String nom, int positionInitX, int positionInitY, int deplacement1, int deplacement2) {
+	public Roi(Couleur couleur) {
 		
-		super(couleur, "r", RoinitPosX, RoinitPosY, RoiMobilite1, RoiMobilite2);
+		super(couleur, RoiNom, RoinitPosX, RoinitPosY, RoiMobilite1, RoiMobilite2);
 		
 		if (couleur == Couleur.blanc)
 			setPosition(getPositionX(),getPositionY() + DiffEntreBlancNoir);

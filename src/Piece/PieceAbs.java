@@ -16,8 +16,8 @@ public abstract class PieceAbs implements IPiece {
 		this.couleur = couleur;
 		this.nom = nom.toLowerCase();
 				
-		this.deplacement1 = deplacement2;
-		this.deplacement2 = deplacement1;
+		this.deplacement1 = deplacement1;
+		this.deplacement2 = deplacement2;
 		this.positionX = positionInitX;
 		this.positionY = positionInitY;
 		
@@ -28,10 +28,7 @@ public abstract class PieceAbs implements IPiece {
 	
 	
 	public String toString() {
-		if (couleur == Couleur.blanc)
-			return this.nom.toUpperCase();
-		else 
-			return this.nom.toLowerCase();
+		return this.nom;
 	}
 	
 	@Override
