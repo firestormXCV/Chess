@@ -2,8 +2,8 @@ package Piece;
 
 public class Roi extends PieceAbs {
 	
-	private final static int RoinitPosX = 4;
-	private final static int RoinitPosY = 1;
+	private final static int RoinitPosX = 3;
+	private final static int RoinitPosY = 0;
 	private final static int DiffEntreBlancNoir = 7;
 	private final static int RoiMobilite1 = 1;
 	private final static int RoiMobilite2 = 1;

@@ -2,8 +2,8 @@ package Piece;
 
 public class Tour extends PieceAbs {
 	
-	private final static int TournitPosX = 1;
-	private final static int TourinitPosY = 1;
+	private final static int TournitPosX = 0;
+	private final static int TourinitPosY = 0;
 	private final static int DiffEntreBlancNoir = 7;
 	private final static int TourMobilite1 = 7;
 	private final static int TourMobilite2 = 0;

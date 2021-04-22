@@ -15,7 +15,7 @@ public class Partie {
 		this.plateau = new Echequier();
 		this.J1 = new Joueur("J1", Couleur.noir);
 		this.J2 = new Joueur("J2", Couleur.blanc);
-		
+		System.out.println(plateau.toString());
 	}
 	
 }

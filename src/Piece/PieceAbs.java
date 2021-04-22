@@ -22,12 +22,12 @@ public abstract class PieceAbs implements IPiece {
 		this.positionY = positionInitY;
 		
 		if (couleur == Couleur.blanc) 
-			nom = nom.toUpperCase();
+			this.nom = nom.toUpperCase();
 	}
 	
 	
 	
-	public String toString() {
+	public String getNom() {
 		return this.nom;
 	}
 	
