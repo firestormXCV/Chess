@@ -49,7 +49,7 @@ public abstract class PieceAbs implements IPiece {
 		return positionY;
 	}
 
-	protected void setPosition(int posX, int posY) {				//DEMANDER POUR CA//
+	public void setPosition(int posX, int posY) {				//DEMANDER POUR CA//
 		this.positionX = posX;
 		this.positionY = posY;
 	}
