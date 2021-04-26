@@ -1,13 +1,12 @@
 package application;
 
-import Jeu.Plateau;
+import partie.Partie;
 
 public class Appli {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Plateau test = new Plateau();
-		test.toString();
+		Partie game = new Partie();
+
 	}
 
 }
