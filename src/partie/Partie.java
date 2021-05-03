@@ -18,4 +18,20 @@ public class Partie {
 		System.out.println(plateau.toString());
 	}
 	
+	public void Jouer() {
+		String vainqueur;
+		
+		while (Vainqueur() == null) {
+			if (J1.jouerCoup() || Vainqueur().equals(J1.getNom())) {
+				vainqueur = J1.getNom();
+				break;
+			}
+			if (J2.jouerCoup() || Vainqueur().equals(J1.getNom()))
+				vainqueur = J2.getNom();;
+		};
+	}
+	
+	private String Vainqueur() {
+		return null;
+	}
 }

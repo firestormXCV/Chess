@@ -1,6 +1,7 @@
 package joueur;
 
 public interface IJoueur {
-	public void jouerCoup();
+	public boolean jouerCoup();
+	public String getNom();
 	 
 }

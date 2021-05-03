@@ -9,6 +9,9 @@ import Piece.Tour;
 
 public class Joueur implements IJoueur {
 
+
+
+
 	private String nom;
 	private Couleur couleur;
 	
@@ -21,9 +24,15 @@ public class Joueur implements IJoueur {
 	
 	
 	@Override
-	public void jouerCoup() {
+	public boolean jouerCoup() {
+		return false;
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public String getNom() {
+		return nom;
+	}
+
 
 }
