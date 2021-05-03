@@ -58,6 +58,20 @@ public class Echequier {
 	public String toString() {
 		StringBuilder s = new StringBuilder();
 		
+		s.append("- - - - - - - - \n");
+				
+				for (int lig = 0; lig < nbLignesPlateau; ++lig) {
+					s.append("|");		
+					for(int col = 0; col < nbColonnesPlateau; ++ col) {
+					s.append(damier[col][lig].getOccupe() + "|");
+					}
+					s.append("\n");
+				}
+						
+				
+				s.append("- - - - - - - - \n");
+				
+				s.append("\n\n\n" + PionBlanc.get(0).getNom() + PionBlanc.get(0).getPositionX() + "   " + PionBlanc.get(0).getPositionY());
 		
 		return s.toString();
 		
