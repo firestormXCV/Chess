@@ -56,6 +56,30 @@ public class Echequier {
 	}
 	
 	public String toString() {
-		return "a";
+
+		int x = 0;
+		int y = 0;
+		//x = piece.getPositionX();
+		//y = piece.getPositionY();
+		
+		String coordLettres = "    a   b   c   d   e   f   g   h";
+		
+		StringBuilder s = new StringBuilder();
+		s.append(coordLettres + "\n");
+		s.append("   --- --- --- --- --- --- --- ---\n");
+		for (int colonnes = 8 ; colonnes > 0 ; colonnes--) {
+			s.append(colonnes);
+			
+			for(int lignes = 9 ; lignes > 0 ; lignes--) {
+				s.append(" | " + " ");
+			}
+			
+			s.append(colonnes + "\n");
+			s.append("   --- --- --- --- --- --- --- ---\n");
+		}
+		
+		s.append(coordLettres + "\n");
+		return s.toString();	
+
 	}
 }
