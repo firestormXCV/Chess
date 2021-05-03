@@ -56,6 +56,7 @@ public class Echequier {
 	}
 	
 	public String toString() {
+
 		String coordLettres = "    a   b   c   d   e   f   g   h";
 		int coordChiffres = 8;
 		StringBuilder s = new StringBuilder();
@@ -74,5 +75,6 @@ public class Echequier {
 		
 		s.append(coordLettres + "\n");
 		return s.toString();	
+
 	}
 }
