@@ -57,24 +57,19 @@ public class Echequier {
 	
 	public String toString() {
 
-		int x = 0;
-		int y = 0;
-		//x = piece.getPositionX();
-		//y = piece.getPositionY();
-		
 		String coordLettres = "    a   b   c   d   e   f   g   h";
-		
+		int coordChiffres = 8;
 		StringBuilder s = new StringBuilder();
 		s.append(coordLettres + "\n");
 		s.append("   --- --- --- --- --- --- --- ---\n");
-		for (int colonnes = 8 ; colonnes > 0 ; colonnes--) {
-			s.append(colonnes);
-			
-			for(int lignes = 9 ; lignes > 0 ; lignes--) {
-				s.append(" | " + " ");
+		for (int lignes = 0 ; lignes < nbLignesPlateau ; lignes++) {
+			s.append(coordChiffres);
+			coordChiffres--;
+			for(int colonnes = 0 ; colonnes < nbColonnesPlateau ; colonnes++) {
+				s.append(" | " + damier[nbColonnesPlateau - colonnes - 1][lignes].getOccupe());
 			}
 			
-			s.append(colonnes + "\n");
+			s.append(" | " + (coordChiffres + 1) + "\n");
 			s.append("   --- --- --- --- --- --- --- ---\n");
 		}
 		
