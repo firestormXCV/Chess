@@ -9,8 +9,7 @@ import Piece.Tour;
 
 public class Echequier {
 	
-	private final static int nbLignesPlateau = 8;
-	private final static int nbColonnesPlateau = 8;
+	private final static int TailleCote = 8;
 	private ArrayList<IPiece> PionBlanc;
 	private ArrayList<IPiece> PionNoir;
 	
@@ -19,9 +18,9 @@ public class Echequier {
 	
 	public Echequier () {
 		
-		this.damier = new Case[nbLignesPlateau][nbColonnesPlateau];
-		for (int lig = 0; lig < nbLignesPlateau; ++lig)
-			for(int col = 0; col < nbColonnesPlateau; ++ col)
+		this.damier = new Case[TailleCote][TailleCote];
+		for (int lig = 0; lig < TailleCote; ++lig)
+			for(int col = 0; col < TailleCote; ++ col)
 				damier[lig][col] = new Case();
 		
 		this.PionBlanc = new ArrayList<IPiece>();
@@ -59,9 +58,9 @@ public class Echequier {
 	        
 	        s.append("- - - - - - - - \n");
 	                
-	                for (int lig = 0; lig < nbLignesPlateau; ++lig) {
+	                for (int lig = 0; lig < TailleCote; ++lig) {
 	                    s.append("|");        
-	                    for(int col = 0; col < nbColonnesPlateau; ++ col) {
+	                    for(int col = 0; col < TailleCote; ++ col) {
 	                    s.append(damier[col][lig].getOccupe() + "|");
 	                    }
 	                    s.append("\n");
@@ -74,5 +73,32 @@ public class Echequier {
 	        
 	        return s.toString();
 	        
+	}
+	
+	public void deplacement(int[] coup, Couleur couleur)  { //throw exception
+		
+			if (couleur == Couleur.blanc) {
+				for (IPiece piece: PionBlanc) {
+					if (piece.getPositionX() == coup[0] && piece.getPositionY() == coup[1]) {
+						if (!verifCoup(coup, piece)) //throw exeption
+							System.out.println("ok");
+						else 
+							piece.deplacer(coup[2], coup[3]);
+					} // else throw exception
+						
+				}
+			} else
+				for (IPiece piece: PionNoir) {
+					if (piece.getPositionX() == coup[0] && piece.getPositionY() == coup[1]) {
+						if (!verifCoup(coup, piece)) //throw exeption
+							System.out.println("ok");
+						else 
+							piece.deplacer(coup[2], coup[3]);
+					} // else throw exception
+				}
+	}
+	
+	private boolean verifCoup(int[] coup, IPiece piece) { //throw exception
+		return true;
 	}
 }

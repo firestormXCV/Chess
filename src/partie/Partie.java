@@ -1,5 +1,7 @@
 package partie;
 
+import java.util.Scanner;
+
 import Piece.Couleur;
 import joueur.IJoueur;
 import joueur.Joueur;
@@ -22,11 +24,13 @@ public class Partie {
 		String vainqueur;
 		
 		while (Vainqueur() == null) {
-			if (J1.jouerCoup() || Vainqueur().equals(J1.getNom())) {
+			plateau.toString();
+			if (J1.jouerCoup(plateau) || Vainqueur().equals(J1.getNom())) {
 				vainqueur = J1.getNom();
 				break;
 			}
-			if (J2.jouerCoup() || Vainqueur().equals(J1.getNom()))
+			plateau.toString();
+			if (J2.jouerCoup(plateau) || Vainqueur().equals(J1.getNom()))
 				vainqueur = J2.getNom();;
 		};
 	}
@@ -34,4 +38,6 @@ public class Partie {
 	private String Vainqueur() {
 		return null;
 	}
+	
+	
 }
