@@ -15,23 +15,23 @@ public class Partie {
 	public Partie(){
 		
 		this.plateau = new Echequier();
-		this.J1 = new Joueur("J1", Couleur.noir);
-		this.J2 = new Joueur("J2", Couleur.blanc);
-		System.out.println(plateau.toString());
+		this.J1 = new Joueur("J1", Couleur.blanc);
+		this.J2 = new Joueur("J2", Couleur.noir);
+		
 	}
 	
 	public void Jouer() {
 		String vainqueur;
 		
 		while (Vainqueur() == null) {
-			plateau.toString();
-			if (J1.jouerCoup(plateau) || Vainqueur().equals(J1.getNom())) {
-				vainqueur = J1.getNom();
+			System.out.println(plateau.toString());
+			if (J1.jouerCoup(plateau) || Vainqueur() != null) {
+				vainqueur =  Vainqueur();
 				break;
 			}
-			plateau.toString();
-			if (J2.jouerCoup(plateau) || Vainqueur().equals(J1.getNom()))
-				vainqueur = J2.getNom();;
+			System.out.println(plateau.toString());
+			if (J2.jouerCoup(plateau) || Vainqueur() != null)
+				vainqueur =  Vainqueur();
 		};
 	}
 	

@@ -33,6 +33,8 @@ public class Joueur implements IJoueur {
 		mouvement = saisie();
 		e.deplacement(mouvement, couleur);
 		//catch on recommence
+		
+		
 		return false;	
 	}
 	
@@ -60,7 +62,7 @@ public class Joueur implements IJoueur {
 		coord[0] = coordDeb[0];
 		coord[1] = coordDeb[1];
 		coord[2] = coordFin[0];
-		coord[3] = coordDeb[1];
+		coord[3] = coordFin[1];
 		return coord;
 		
 		
@@ -99,7 +101,7 @@ public class Joueur implements IJoueur {
 		default: // throw exception
 			
 		}
-		coord[1] = saisie.charAt(1) - 1;
+		coord[1] = 7 - (saisie.charAt(1) - 49);
 		
 		return coord;
 	}

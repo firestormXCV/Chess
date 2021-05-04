@@ -54,24 +54,24 @@ public class Echequier {
 	}
 	
 	public String toString() {
-		   StringBuilder s = new StringBuilder();
-	        
-	        s.append("- - - - - - - - \n");
-	                
-	                for (int lig = 0; lig < TailleCote; ++lig) {
-	                    s.append("|");        
-	                    for(int col = 0; col < TailleCote; ++ col) {
-	                    s.append(damier[col][lig].getOccupe() + "|");
-	                    }
-	                    s.append("\n");
-	                }
-	                        
-	                
-	                s.append("- - - - - - - - \n");
-	                
-	                s.append("\n\n\n" + PionBlanc.get(0).getNom() + PionBlanc.get(0).getPositionX() + "   " + PionBlanc.get(0).getPositionY());
-	        
-	        return s.toString();
+		String coordLettres = "    a   b   c   d   e   f   g   h";
+		int coordChiffres = 8;
+		StringBuilder s = new StringBuilder();
+		s.append(coordLettres + "\n");
+		s.append("   --- --- --- --- --- --- --- ---\n");
+		for (int lignes = 0 ; lignes < TailleCote ; lignes++) {
+			s.append(coordChiffres);
+			coordChiffres--;
+			for(int colonnes = 0 ; colonnes < TailleCote ; colonnes++) {
+				s.append(" | " + damier[colonnes][lignes].getOccupe());
+			}
+			
+			s.append(" | " + (coordChiffres + 1) + "\n");
+			s.append("   --- --- --- --- --- --- --- ---\n");
+		}
+		
+		s.append(coordLettres + "\n");
+		return s.toString();	
 	        
 	}
 	
@@ -82,8 +82,11 @@ public class Echequier {
 					if (piece.getPositionX() == coup[0] && piece.getPositionY() == coup[1]) {
 						if (!verifCoup(coup, piece)) //throw exeption
 							System.out.println("ok");
-						else 
+						else {
 							piece.deplacer(coup[2], coup[3]);
+							damier[coup[0]][coup[1]].setOccupe(" ");
+							damier[coup[2]][coup[3]].setOccupe(piece.getNom());
+						}
 					} // else throw exception
 						
 				}
@@ -92,8 +95,11 @@ public class Echequier {
 					if (piece.getPositionX() == coup[0] && piece.getPositionY() == coup[1]) {
 						if (!verifCoup(coup, piece)) //throw exeption
 							System.out.println("ok");
-						else 
+						else {
 							piece.deplacer(coup[2], coup[3]);
+							damier[coup[0]][coup[1]].setOccupe(" ");
+							damier[coup[2]][coup[3]].setOccupe(piece.getNom());
+						}
 					} // else throw exception
 				}
 	}
