@@ -33,7 +33,7 @@ public abstract class PieceAbs implements IPiece {
 	
 	@Override
 	public void deplacer(int posX, int posY)  {//throw
-		if (!verifDeplacement(posX, posY)) {
+		if (!verifDeplacement(posX, posY)) { //verif useles ??
 			//throw exception			
 		}
 		setPosition(posX, posY);
@@ -41,6 +41,18 @@ public abstract class PieceAbs implements IPiece {
 			
 	}
 		
+	public int getDeplacement1() {
+		return deplacement1;
+	}
+
+
+
+	public int getDeplacement2() {
+		return deplacement2;
+	}
+
+
+
 	public int getPositionX() {
 		return positionX;
 	}

@@ -6,5 +6,7 @@ public interface IPiece {
 	public void attaquer(int posX, int posY);
 	public int getPositionX();
 	public int getPositionY();
+	public int getDeplacement1();
+	public int getDeplacement2();
 	public String getNom();
 }
