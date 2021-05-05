@@ -106,9 +106,10 @@ public class Echequier {
 	
 	private boolean verifCoup(int[] coup, IPiece piece) { //throw exception
 		int x = Math.abs(coup[0] - coup[2]);
-		int y = Math.abs(coup[1] - coup [3]);
+		int y = Math.abs(coup[1] - coup[3]);
 		if (verifLimit(coup)) {
-			if ((piece.getDeplacement1() - x >= 0 && piece.getDeplacement2() - y >= 0) ||( piece.getDeplacement2() - x >= 0 && piece.getDeplacement1() - y >= 0)) {
+			if ((piece.getDeplacement1() - x >= 0 && piece.getDeplacement2() - y >= 0) ||
+					( piece.getDeplacement2() - x >= 0 && piece.getDeplacement1() - y >= 0)) {
 				return true;
 			}		
 		}
@@ -116,7 +117,13 @@ public class Echequier {
 	}
 	
 	private boolean verifLimit(int[] coup) {
-		if (coup[0] >= 0 && coup[0] <= 7 &&)
-		return true 
-	}
+			
+		for (int i = 0; i <= 3; i++) {
+			if (!(coup[i] >= 0 && coup[i] <= 7)) {
+				return false;
+			}
+				
+		}		
+		return true;
+	}	
 }
