@@ -9,4 +9,5 @@ public interface IPiece {
 	public int getDeplacement1();
 	public int getDeplacement2();
 	public String getNom();
+	public Couleur getCouleur();
 }

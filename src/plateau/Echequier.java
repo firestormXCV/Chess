@@ -110,7 +110,8 @@ public class Echequier {
 		if (verifLimit(coup)) {
 			if ((piece.getDeplacement1() - x >= 0 && piece.getDeplacement2() - y >= 0) ||
 					( piece.getDeplacement2() - x >= 0 && piece.getDeplacement1() - y >= 0)) {
-				return true;
+						if (verifOccupation(coup, piece))
+							return true;
 			}		
 		}
 		return false;
@@ -119,11 +120,36 @@ public class Echequier {
 	private boolean verifLimit(int[] coup) {
 			
 		for (int i = 0; i <= 3; i++) {
-			if (!(coup[i] >= 0 && coup[i] <= 7)) {
+			if (!(coup[i] >= 0 && coup[i] <= TailleCote - 1)) {
 				return false;
 			}
 				
 		}		
 		return true;
-	}	
+	}
+	
+	private boolean verifOccupation(int[] coup, IPiece pion) {
+		for (IPiece piece: PionNoir) {
+			if (piece.getPositionX() == coup[2] && piece.getPositionY() == coup[3] && pion != piece)
+				if (piece.getCouleur() == pion.getCouleur())
+					return false;
+				else {
+					PionNoir.remove(piece);
+					return true;
+				}
+					
+		}
+		for (IPiece piece: PionBlanc) {
+			if (piece.getPositionX() == coup[2] && piece.getPositionY() == coup[3] && pion != piece)
+				if (piece.getCouleur() == pion.getCouleur())
+					return false;
+				else {
+					PionNoir.remove(piece);
+					return true;
+				}		
+		}
+		
+		//for (int x = ;)
+		return true;
+	}
 }

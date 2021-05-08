@@ -27,8 +27,8 @@ public class Joueur implements IJoueur {
 	
 	@Override
 	public boolean jouerCoup(Echequier e) {	
-		int[] mouvement;
-		mouvement = new int[4];
+		System.out.println("Joueur " + this.couleur + " c'est a vous de jouer !");
+		int[] mouvement = new int[4];
 		//try
 		mouvement = saisie();
 		e.deplacement(mouvement, couleur);
@@ -44,12 +44,9 @@ public class Joueur implements IJoueur {
 	
 	public int[] saisie() {
 				
-		int[] coordDeb;
-		int[] coordFin;
-		int[] coord;
-		coordDeb = new int[2];
-		coordFin = new int[2];
-		coord = new int[4];
+		int[] coordDeb = new int[2];
+		int[] coordFin = new int[2];
+		int[] coord = new int[4];
 		
 		Scanner sc = new Scanner(System.in);
 		String saisie = sc.nextLine().trim().toLowerCase();
@@ -73,36 +70,10 @@ public class Joueur implements IJoueur {
 		int[] coord;
 		coord = new int[2];
 		
-		switch (saisie.charAt(0)) {
-		case 'a':
-			coord[0] = 0;
-			break;
-		case 'b':
-			coord[0] = 1;
-			break;
-		case 'c':
-			coord[0] = 2;
-			break;
-		case 'd':
-			coord[0] = 3;
-			break;
-		case 'e':
-			coord[0] = 4;
-			break;
-		case 'f':
-			coord[0] = 5;
-			break;
-		case 'g':
-			coord[0] = 6;
-			break;
-		case 'h':
-			coord[0] = 7;
-			break;
-		default: // throw exception
-			
-		}
+		coord[0] = saisie.charAt(0) - 97;
 		coord[1] = 7 - (saisie.charAt(1) - 49);
-		
+		//System.out.println(saisie);
+		System.out.println(coord[0] + coord[1]);
 		return coord;
 	}
 	

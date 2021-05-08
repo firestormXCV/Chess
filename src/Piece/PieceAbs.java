@@ -71,4 +71,8 @@ public abstract class PieceAbs implements IPiece {
 		
 		return true;
 	}
+
+	public Couleur getCouleur() {
+		return couleur;
+	}
 }
