@@ -21,7 +21,7 @@ public class Partie {
 	}
 	
 	public void Jouer() {
-		String vainqueur;
+		String vainqueur = null;
 		
 		while (Vainqueur() == null) {
 			System.out.println(plateau.toString());
@@ -33,10 +33,40 @@ public class Partie {
 			if (J2.jouerCoup(plateau) || Vainqueur() != null)
 				vainqueur =  Vainqueur();
 		};
+		System.out.println(plateau.toString());
+		System.out.println(vainqueur);
 	}
 	
 	private String Vainqueur() {
+		
+		plateau.actualiser();
+		
+		//if (!mat())
+		int[] CoordRoiNoir = plateau.getRoiCoord(Couleur.noir);
+		if (mat(CoordRoiNoir))
+			return "Blanc est le vainqueur";
+		
+		int[] CoordRoiBlanc = plateau.getRoiCoord(Couleur.blanc);
+		if (mat(CoordRoiBlanc))
+			return"Noir est le vainqueur";
 		return null;
+	}
+	
+	private boolean mat(int[] coord) {
+		
+		for (int[][][] coupPossible : plateau.getToutCoupPossible()) {
+			for (int i = 0; i <= 8 - 1; i++ ) {
+				for (int j = 0; j <= 8 - 1; j++ ) {
+					
+					if ((coord[0] == coupPossible[i][j][2] && coord[1] == coupPossible[i][j][3])
+							&& (coord[0] != coupPossible[i][j][0] || coord[1] != coupPossible[i][j][1])) {
+						return true;
+					}
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	

@@ -10,8 +10,8 @@ import Piece.Tour;
 public class Echequier {
 	
 	private final static int TailleCote = 8;
-	private ArrayList<IPiece> PionBlanc;
-	private ArrayList<IPiece> PionNoir;
+	private ArrayList<IPiece> Pion;
+	private ArrayList<int[][][]> ToutCoupPlatau;
 	
 	
 	private Case[][] damier;
@@ -23,34 +23,28 @@ public class Echequier {
 			for(int col = 0; col < TailleCote; ++ col)
 				damier[lig][col] = new Case();
 		
-		this.PionBlanc = new ArrayList<IPiece>();
-		this.PionNoir = new ArrayList<IPiece>();
+		this.Pion = new ArrayList<IPiece>();
 		
-		PionBlanc.add(new Roi(Couleur.blanc));
-		PionBlanc.add(new Tour(Couleur.blanc, false));
-		PionBlanc.add(new Tour(Couleur.blanc, true));
+		Pion.add(new Roi(Couleur.blanc));
+		Pion.add(new Tour(Couleur.blanc, false));
+		Pion.add(new Tour(Couleur.blanc, true));
 		
-		PionNoir.add(new Roi(Couleur.noir));
-		PionNoir.add(new Tour(Couleur.noir, false));
-		PionNoir.add(new Tour(Couleur.noir, true));
-		
-		for (IPiece piece: PionBlanc) {
-			int x = 0;
-			int y = 0;
-			x = piece.getPositionX();
-			y = piece.getPositionY();
-			damier[x][y].setOccupe(piece.getNom());
-		}
-		
-		for (IPiece piece: PionNoir) {
-			int x = 0;
-			int y = 0;
-			x = piece.getPositionX();
-			y = piece.getPositionY();
-			damier[x][y].setOccupe(piece.getNom());
-			System.out.println(piece.getNom() + "\n");
-		}
+		Pion.add(new Roi(Couleur.noir));
+		Pion.add(new Tour(Couleur.noir, false));
+		Pion.add(new Tour(Couleur.noir, true));
 			
+		for (IPiece piece: Pion) {
+			int x = 0;
+			int y = 0;
+			x = piece.getPositionX();
+			y = piece.getPositionY();
+			damier[x][y].setOccupe(piece.getNom());
+		}
+		
+		this.ToutCoupPlatau = new ArrayList<>();
+		for (IPiece piece: Pion) 
+			this.ToutCoupPlatau.add(coupDisponible(piece));
+		
 	}
 	
 	public String toString() {
@@ -76,47 +70,105 @@ public class Echequier {
 	}
 	
 	public void deplacement(int[] coup, Couleur couleur)  { //throw exception
+		//ArrayList<int[][][]> toutCoupPossible = new ArrayList<>();	
+		int toutCoupPossible[][][] = new int[8][TailleCote][4];
+		actualiser();
+		for (IPiece piece: Pion) {
+			
+			if (piece.getPositionX() == coup[0] && piece.getPositionY() == coup[1] && couleur == piece.getCouleur()) {
+				for (int[][][] coupPiece : ToutCoupPlatau)
+					if (coupPiece[0][0][0] == coup[0] && coupPiece[0][0][1] == coup[1])
+						toutCoupPossible = coupPiece;
+				
+								
+				for (int i = 0; i <= TailleCote - 1 ; i++) {
+					for (int j = 0; j <= TailleCote - 1; j++) {
+						if (toutCoupPossible[i][j][0] == coup[0] &&
+							toutCoupPossible[i][j][1] == coup[1] &&
+							toutCoupPossible[i][j][2] == coup[2] &&
+							toutCoupPossible[i][j][3] == coup[3]) {
+							
+							for (IPiece ennemis: Pion) {
+								if (ennemis.getPositionX() == coup[2] && ennemis.getPositionY() == coup[3]) {
+									Pion.remove(ennemis);
+									break;
+								}
+							}						
+							piece.deplacer(coup[2], coup[3]);
+							damier[coup[0]][coup[1]].setOccupe(" ");
+							damier[coup[2]][coup[3]].setOccupe(piece.getNom());
+							
+							return;
+						} else {
+							//throw exception
+						}
+					}
+				}
+			}					
+		}								
+	}
+	/**
+	 * Cette methode permet de calculer tout les coups possible pour une piece sur l'echequier
+	 * @param piece: la piece qui est etudie
+	 * @return: un tableau de trajectoire, chaque trajectoire est un tableau composé de coordonnées, de paire paire d'int.
+	 */
+	private int[][][] coupDisponible(IPiece piece) {
+		int listTrajectoire[][][] = new int[8][TailleCote][4];
+		int toutCoupPossible[][][] = new int[8][TailleCote][4];
+		int[] nul = {0, 0, 0, 0};
 		
-			if (couleur == Couleur.blanc) {
-				for (IPiece piece: PionBlanc) {
-					if (piece.getPositionX() == coup[0] && piece.getPositionY() == coup[1]) {
-						if (!verifCoup(coup, piece)) //throw exeption
-							System.out.println("ok");
-						else {
-							piece.deplacer(coup[2], coup[3]);
-							damier[coup[0]][coup[1]].setOccupe(" ");
-							damier[coup[2]][coup[3]].setOccupe(piece.getNom());
-						}
-					} // else throw exception
+		listTrajectoire = piece.coupPossible();
+		
+		for (int i = 0; i <= TailleCote - 1 ; i++) {
+			boolean possible = true;
+			
+			for (int j = 0; j <= TailleCote - 1 && possible; j++) {
+				
+				if (listTrajectoire[i][j] != nul) {
+					switch (verifCoup(listTrajectoire[i][j], piece)) {
+					case 0:
+						possible = false;
 						
-				}
-			} else
-				for (IPiece piece: PionNoir) {
-					if (piece.getPositionX() == coup[0] && piece.getPositionY() == coup[1]) {
-						if (!verifCoup(coup, piece)) //throw exeption
-							System.out.println("ok");
-						else {
-							piece.deplacer(coup[2], coup[3]);
-							damier[coup[0]][coup[1]].setOccupe(" ");
-							damier[coup[2]][coup[3]].setOccupe(piece.getNom());
-						}
-					} // else throw exception
-				}
+					case 1:
+						toutCoupPossible[i][j] = listTrajectoire[i][j];
+						break;
+					case 2:
+						possible = false;
+					}
+					
+				} else 
+					possible = false;
+			}
+		}
+		
+		return toutCoupPossible;
 	}
 	
-	private boolean verifCoup(int[] coup, IPiece piece) { //throw exception
+	
+	/**
+	 * 
+	 * @param coup
+	 * @param piece
+	 * @return 0 = coup possible mais dernier direction car ennemis present, 1 = coup valide , 2 =  coup impossible allié present ou autre erreur
+	 */
+	private int verifCoup(int[] coup, IPiece piece) { //throw exception
 		int x = Math.abs(coup[0] - coup[2]);
 		int y = Math.abs(coup[1] - coup[3]);
 		if (verifLimit(coup)) {
 			if ((piece.getDeplacement1() - x >= 0 && piece.getDeplacement2() - y >= 0) ||
 					( piece.getDeplacement2() - x >= 0 && piece.getDeplacement1() - y >= 0)) {
-						if (verifOccupation(coup, piece))
-							return true;
+						return verifOccupation(coup, piece);
+							
 			}		
 		}
-		return false;
+        return 1;
 	}
-	
+	/**
+	 * Verifie si les valeurs du coup sont bien des valeurs positive et dans la limite du plateau 
+	 * (-1 car le tableau commence a 0 alors que l'échéquier commence a 1).
+	 * @param coup: Coup a vérifier
+	 * @return: True = OK,   False = Erreur
+	 */
 	private boolean verifLimit(int[] coup) {
 			
 		for (int i = 0; i <= 3; i++) {
@@ -127,29 +179,47 @@ public class Echequier {
 		}		
 		return true;
 	}
-	
-	private boolean verifOccupation(int[] coup, IPiece pion) {
-		for (IPiece piece: PionNoir) {
+	/**
+	 * 
+	 * @param coup
+	 * @param pion
+	 * @return 0 = case occupé ennemis, 1 = case vide, 2 = case occupé allié
+	 */
+	private int verifOccupation(int[] coup, IPiece pion) {
+		for (IPiece piece: Pion) {
 			if (piece.getPositionX() == coup[2] && piece.getPositionY() == coup[3] && pion != piece)
 				if (piece.getCouleur() == pion.getCouleur())
-					return false;
+					return 2;
 				else {
-					PionNoir.remove(piece);
-					return true;
+					return 0;
 				}
 					
-		}
-		for (IPiece piece: PionBlanc) {
-			if (piece.getPositionX() == coup[2] && piece.getPositionY() == coup[3] && pion != piece)
-				if (piece.getCouleur() == pion.getCouleur())
-					return false;
-				else {
-					PionNoir.remove(piece);
-					return true;
-				}		
-		}
-		
+		}		
 		//for (int x = ;)
-		return true;
+		return 1;
 	}
+	
+	public ArrayList<int[][][]> getToutCoupPossible() {
+		return ToutCoupPlatau;
+	}
+	
+	public void actualiser() {
+		ToutCoupPlatau.removeAll(ToutCoupPlatau);
+		for (IPiece piece: Pion) 
+			this.ToutCoupPlatau.add(coupDisponible(piece));
+	}
+	
+	public int[] getRoiCoord(Couleur couleur) {
+		int[] coord = new int[2];
+		for (IPiece piece : Pion) {
+			
+			if (piece.getNom().toLowerCase().equals("r") && piece.getCouleur() == couleur) {
+				coord[0] = piece.getPositionX();
+				coord[1] = piece.getPositionY();
+				return coord;
+			}
+		}	
+		return coord;
+	}
+	
 }

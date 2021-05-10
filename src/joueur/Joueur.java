@@ -5,8 +5,7 @@ import java.util.Scanner;
 
 import Piece.Couleur;
 import Piece.IPiece;
-import Piece.Roi;
-import Piece.Tour;
+
 import plateau.Echequier;
 
 public class Joueur implements IJoueur {
@@ -29,6 +28,7 @@ public class Joueur implements IJoueur {
 	public boolean jouerCoup(Echequier e) {	
 		System.out.println("Joueur " + this.couleur + " c'est a vous de jouer !");
 		int[] mouvement = new int[4];
+		
 		//try
 		mouvement = saisie();
 		e.deplacement(mouvement, couleur);

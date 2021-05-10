@@ -10,4 +10,5 @@ public interface IPiece {
 	public int getDeplacement2();
 	public String getNom();
 	public Couleur getCouleur();
+	public int[][][] coupPossible();
 }
