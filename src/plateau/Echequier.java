@@ -161,7 +161,7 @@ public class Echequier {
 							
 			}		
 		}
-        return 1;
+        return 2;
 	}
 	/**
 	 * Verifie si les valeurs du coup sont bien des valeurs positive et dans la limite du plateau 
@@ -194,8 +194,7 @@ public class Echequier {
 					return 0;
 				}
 					
-		}		
-		//for (int x = ;)
+		}
 		return 1;
 	}
 	
@@ -220,6 +219,31 @@ public class Echequier {
 			}
 		}	
 		return coord;
+	}
+	
+	public boolean echec(int[] coord) {
+			
+			for (int[][][] coupPossible : ToutCoupPlatau) {
+				for (int i = 0; i <= 8 - 1; i++ ) {
+					for (int j = 0; j <= 8 - 1; j++ ) {
+						
+						if ((coord[0] == coupPossible[i][j][2] && coord[1] == coupPossible[i][j][3])
+								&& (coord[0] != coupPossible[i][j][0] || coord[1] != coupPossible[i][j][1])) {
+							return true;
+						}
+					}
+				}
+			}
+			
+			return false;
+		}
+	
+	public boolean mat(int [] coord ) {
+		
+		
+		
+		
+		return true;
 	}
 	
 }

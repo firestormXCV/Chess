@@ -25,7 +25,7 @@ public class Joueur implements IJoueur {
 	
 	
 	@Override
-	public boolean jouerCoup(Echequier e) {	
+	public boolean jouerCoup(Echequier e, boolean enEchec) {	
 		System.out.println("Joueur " + this.couleur + " c'est a vous de jouer !");
 		int[] mouvement = new int[4];
 		

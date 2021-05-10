@@ -25,49 +25,44 @@ public class Partie {
 		
 		while (Vainqueur() == null) {
 			System.out.println(plateau.toString());
-			if (J1.jouerCoup(plateau) || Vainqueur() != null) {
-				vainqueur =  Vainqueur();
+			J1.jouerCoup(plateau, true);
+			if (Vainqueur() != null) 				
 				break;
-			}
+			
 			System.out.println(plateau.toString());
-			if (J2.jouerCoup(plateau) || Vainqueur() != null)
-				vainqueur =  Vainqueur();
+			J2.jouerCoup(plateau, true);				
 		};
 		System.out.println(plateau.toString());
+		vainqueur =  "Le vainqueur est " + Vainqueur().getNom();
 		System.out.println(vainqueur);
 	}
 	
-	private String Vainqueur() {
+	private IJoueur Vainqueur() {
 		
 		plateau.actualiser();
 		
-		//if (!mat())
 		int[] CoordRoiNoir = plateau.getRoiCoord(Couleur.noir);
-		if (mat(CoordRoiNoir))
-			return "Blanc est le vainqueur";
-		
-		int[] CoordRoiBlanc = plateau.getRoiCoord(Couleur.blanc);
-		if (mat(CoordRoiBlanc))
-			return"Noir est le vainqueur";
-		return null;
-	}
-	
-	private boolean mat(int[] coord) {
-		
-		for (int[][][] coupPossible : plateau.getToutCoupPossible()) {
-			for (int i = 0; i <= 8 - 1; i++ ) {
-				for (int j = 0; j <= 8 - 1; j++ ) {
-					
-					if ((coord[0] == coupPossible[i][j][2] && coord[1] == coupPossible[i][j][3])
-							&& (coord[0] != coupPossible[i][j][0] || coord[1] != coupPossible[i][j][1])) {
-						return true;
-					}
-				}
-			}
+		if (plateau.echec(CoordRoiNoir)) {
+			for (int[][][] coupPiece : plateau.getToutCoupPossible())
+				if (coupPiece[0][0][0] == CoordRoiNoir[0] && coupPiece[0][0][1] == CoordRoiNoir[1])
+					for (int i = 0; i <= 8 - 1; i++ ) 
+						for (int j = 0; j <= 8 - 1; j++ ) 
+							if (!plateau.echec(coupPiece[i][j]))
+								return null;
+		return J1;
 		}
 		
-		return false;
+		int[] CoordRoiBlanc = plateau.getRoiCoord(Couleur.blanc);
+		if (plateau.echec(CoordRoiBlanc)) {
+			for (int[][][] coupPiece : plateau.getToutCoupPossible())
+				if (coupPiece[0][0][0] == CoordRoiBlanc[0] && coupPiece[0][0][1] == CoordRoiBlanc[1])
+					for (int i = 0; i <= 8 - 1; i++ ) 
+						for (int j = 0; j <= 8 - 1; j++ ) 
+							if (!plateau.echec(coupPiece[i][j]))
+								return null;
+		return J2;
+		}
+		return null;
 	}
-	
-	
+		
 }
