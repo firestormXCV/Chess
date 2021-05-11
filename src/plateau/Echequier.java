@@ -107,17 +107,25 @@ public class Echequier {
 							toutCoupPossible[i][j][2] == coup[2] &&
 							toutCoupPossible[i][j][3] == coup[3]) {
 							
-							for (IPiece ennemis: Pion) {
-								if (ennemis.getPositionX() == coup[2] && ennemis.getPositionY() == coup[3] && ennemis != piece) {
-									Pion.remove(ennemis);
-									break;
-								}
-							}						
-							piece.deplacer(coup[2], coup[3]);
-							damier[coup[0]][coup[1]].setOccupe(" ");
-							damier[coup[2]][coup[3]].setOccupe(piece.getNom());
-							
-							return;
+							Echequier plateauTest = new Echequier(this);
+							for (IPiece pionTest : plateauTest.getPion())	
+								if (pionTest.getPositionX() == piece.getPositionX() && pionTest.getPositionY() == piece.getPositionY())
+									pionTest.deplacer(coup[2], coup[3]);
+							plateauTest.actualiser();
+							if (!plateauTest.echec(plateauTest.getRoiCoord(couleur))) {
+								
+								for (IPiece ennemis: Pion) {
+									if (ennemis.getPositionX() == coup[2] && ennemis.getPositionY() == coup[3] && ennemis != piece) {
+										Pion.remove(ennemis);
+										break;
+									}
+								}						
+								piece.deplacer(coup[2], coup[3]);
+								damier[coup[0]][coup[1]].setOccupe(" ");
+								damier[coup[2]][coup[3]].setOccupe(piece.getNom());
+								
+								return;
+							}
 						} else {
 							//throw exception
 						}
@@ -224,6 +232,9 @@ public class Echequier {
 		return Pion;
 	}
 	
+	/**
+	 * Génére la Liste de tout les coups possible pour toute les pieces sur le plateau.
+	 */
 	public void actualiser() {
 		ToutCoupPlatau.removeAll(ToutCoupPlatau);
 		for (IPiece piece: Pion) 

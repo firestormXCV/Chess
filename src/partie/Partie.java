@@ -38,6 +38,10 @@ public class Partie {
 		System.out.println(vainqueur);
 	}
 	
+	/**
+	 * Cette methode permet de savoir si il y a echec et mat, et pour quel joueur.
+	 * @return Le Joueur gagnant ou null si aucun n'est vainqueur
+	 */
 	private IJoueur Vainqueur() {
 		
 		plateau.actualiser();
