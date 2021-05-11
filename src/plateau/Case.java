@@ -10,6 +10,11 @@ public class Case {
 		this.setOccupe(" ");
 		this.setMenace(false);
 	}
+	
+	public Case(Case c) {
+		this.setOccupe(c.getOccupe());
+		this.setMenace(false);
+	}
 
 	public String getOccupe() {
 		return occupe;

@@ -3,6 +3,7 @@ package partie;
 import java.util.Scanner;
 
 import Piece.Couleur;
+import Piece.IPiece;
 import joueur.IJoueur;
 import joueur.Joueur;
 import plateau.Echequier;
@@ -43,26 +44,52 @@ public class Partie {
 		
 		int[] CoordRoiNoir = plateau.getRoiCoord(Couleur.noir);
 		if (plateau.echec(CoordRoiNoir)) {
+			
+			Echequier plateauTest = new Echequier(plateau);
+			System.out.println("Roi noir en echec");
 			for (int[][][] coupPiece : plateau.getToutCoupPossible())
-				if (coupPiece[0][0][0] == CoordRoiNoir[0] && coupPiece[0][0][1] == CoordRoiNoir[1])
-					for (int i = 0; i <= 8 - 1; i++ ) 
-						for (int j = 0; j <= 8 - 1; j++ ) 
-							if (!plateau.echec(coupPiece[i][j]))
-								return null;
+				if (coupPiece[0][0][0] == CoordRoiNoir[0] && coupPiece[0][0][1] == CoordRoiNoir[1])				
+						for (IPiece piece : plateauTest.getPion()) {
+							if (piece.getCouleur() == Couleur.noir && piece.getNom().toLowerCase().equals("r")) {
+								for (int i = 0; i <= 8 - 1; i++ ) 	{
+									plateauTest.actualiser();
+									piece.deplacer(coupPiece[i][1][2],coupPiece[i][1][3]);
+									CoordRoiNoir = plateauTest.getRoiCoord(Couleur.noir);	
+									if (!plateauTest.echec(CoordRoiNoir))
+											return null;
+								}
+							}
+								
+							
+						}
 		return J1;
 		}
 		
 		int[] CoordRoiBlanc = plateau.getRoiCoord(Couleur.blanc);
 		if (plateau.echec(CoordRoiBlanc)) {
+			
+			Echequier plateauTest = new Echequier(plateau);
+			System.out.println("Roi blanc en echec");
 			for (int[][][] coupPiece : plateau.getToutCoupPossible())
 				if (coupPiece[0][0][0] == CoordRoiBlanc[0] && coupPiece[0][0][1] == CoordRoiBlanc[1])
-					for (int i = 0; i <= 8 - 1; i++ ) 
-						for (int j = 0; j <= 8 - 1; j++ ) 
-							if (!plateau.echec(coupPiece[i][j]))
-								return null;
-		return J2;
+					for (IPiece piece : plateauTest.getPion()) {
+						if (piece.getCouleur() == Couleur.blanc && piece.getNom().toLowerCase().equals("r")) {
+							for (int i = 0; i <= 8 - 1; i++ ) 	{
+								plateauTest.actualiser();
+								piece.deplacer(coupPiece[i][1][2],coupPiece[i][1][3]);
+								CoordRoiBlanc = plateauTest.getRoiCoord(Couleur.blanc);	
+								if (!plateauTest.echec(CoordRoiBlanc))
+										return null;
+							}
+						}
+							
+						
+					}
+			return J2;
 		}
-		return null;
-	}
 		
+		
+	
+	return null;
+	}
 }

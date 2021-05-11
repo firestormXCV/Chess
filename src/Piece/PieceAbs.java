@@ -27,6 +27,7 @@ public abstract class PieceAbs implements IPiece {
 	
 	
 	
+	
 	public String getNom() {
 		return this.nom;
 	}

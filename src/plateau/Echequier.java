@@ -11,6 +11,7 @@ public class Echequier {
 	
 	private final static int TailleCote = 8;
 	private ArrayList<IPiece> Pion;
+
 	private ArrayList<int[][][]> ToutCoupPlatau;
 	
 	
@@ -42,8 +43,26 @@ public class Echequier {
 		}
 		
 		this.ToutCoupPlatau = new ArrayList<>();
-		for (IPiece piece: Pion) 
-			this.ToutCoupPlatau.add(coupDisponible(piece));
+		actualiser();
+		
+	}
+	
+	public Echequier (Echequier e) {
+		this.damier = new Case[TailleCote][TailleCote];
+		for (int lig = 0; lig < TailleCote; ++lig)
+			for(int col = 0; col < TailleCote; ++ col)
+				damier[lig][col] = new Case(e.damier[lig][col]);
+				
+		this.Pion = new ArrayList<IPiece>();
+		for (int i = 0; i <= e.getPion().size() - 1; i++) {
+			if (e.getPion().get(i) instanceof Tour)
+				Pion.add(new Tour ((Tour) e.getPion().get(i)));
+			else if (e.getPion().get(i) instanceof Roi)
+				Pion.add(new Roi ((Roi) e.getPion().get(i)));
+		}
+		
+		this.ToutCoupPlatau = new ArrayList<>();
+		actualiser();
 		
 	}
 	
@@ -89,7 +108,7 @@ public class Echequier {
 							toutCoupPossible[i][j][3] == coup[3]) {
 							
 							for (IPiece ennemis: Pion) {
-								if (ennemis.getPositionX() == coup[2] && ennemis.getPositionY() == coup[3]) {
+								if (ennemis.getPositionX() == coup[2] && ennemis.getPositionY() == coup[3] && ennemis != piece) {
 									Pion.remove(ennemis);
 									break;
 								}
@@ -127,10 +146,9 @@ public class Echequier {
 				if (listTrajectoire[i][j] != nul) {
 					switch (verifCoup(listTrajectoire[i][j], piece)) {
 					case 0:
-						possible = false;
-						
+						possible = false;				
 					case 1:
-						toutCoupPossible[i][j] = listTrajectoire[i][j];
+							toutCoupPossible[i][j] = listTrajectoire[i][j];
 						break;
 					case 2:
 						possible = false;
@@ -154,10 +172,10 @@ public class Echequier {
 	private int verifCoup(int[] coup, IPiece piece) { //throw exception
 		int x = Math.abs(coup[0] - coup[2]);
 		int y = Math.abs(coup[1] - coup[3]);
-		if (verifLimit(coup)) {
-			if ((piece.getDeplacement1() - x >= 0 && piece.getDeplacement2() - y >= 0) ||
-					( piece.getDeplacement2() - x >= 0 && piece.getDeplacement1() - y >= 0)) {
-						return verifOccupation(coup, piece);
+		if (verifLimit(coup) ) {
+			if (((piece.getDeplacement1() - x >= 0 && piece.getDeplacement2() - y >= 0) ||
+					(piece.getDeplacement2() - x >= 0 && piece.getDeplacement1() - y >= 0))) {
+							return verifOccupation(coup, piece);
 							
 			}		
 		}
@@ -180,7 +198,7 @@ public class Echequier {
 		return true;
 	}
 	/**
-	 * 
+	 *
 	 * @param coup
 	 * @param pion
 	 * @return 0 = case occupé ennemis, 1 = case vide, 2 = case occupé allié
@@ -202,6 +220,10 @@ public class Echequier {
 		return ToutCoupPlatau;
 	}
 	
+	public ArrayList<IPiece> getPion() {
+		return Pion;
+	}
+	
 	public void actualiser() {
 		ToutCoupPlatau.removeAll(ToutCoupPlatau);
 		for (IPiece piece: Pion) 
@@ -209,25 +231,31 @@ public class Echequier {
 	}
 	
 	public int[] getRoiCoord(Couleur couleur) {
-		int[] coord = new int[2];
+		int[] coord = new int[4];
 		for (IPiece piece : Pion) {
 			
 			if (piece.getNom().toLowerCase().equals("r") && piece.getCouleur() == couleur) {
 				coord[0] = piece.getPositionX();
 				coord[1] = piece.getPositionY();
+				coord[2] = piece.getPositionX();
+				coord[3] = piece.getPositionY();
 				return coord;
 			}
 		}	
 		return coord;
 	}
-	
+	/**
+	 * 
+	 * @param coord: coordonnes de la case depuis laquel l echec est verifie
+	 * @return TRUE si la piece sur la case coord est en echec, sinon FALSE
+	 */
 	public boolean echec(int[] coord) {
 			
 			for (int[][][] coupPossible : ToutCoupPlatau) {
 				for (int i = 0; i <= 8 - 1; i++ ) {
 					for (int j = 0; j <= 8 - 1; j++ ) {
 						
-						if ((coord[0] == coupPossible[i][j][2] && coord[1] == coupPossible[i][j][3])
+						if ((coord[2] == coupPossible[i][j][2] && coord[3] == coupPossible[i][j][3])
 								&& (coord[0] != coupPossible[i][j][0] || coord[1] != coupPossible[i][j][1])) {
 							return true;
 						}
@@ -236,14 +264,5 @@ public class Echequier {
 			}
 			
 			return false;
-		}
-	
-	public boolean mat(int [] coord ) {
-		
-		
-		
-		
-		return true;
-	}
-	
+		}	
 }

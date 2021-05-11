@@ -16,7 +16,11 @@ public class Roi extends PieceAbs {
 		if (couleur == Couleur.blanc)
 			setPosition(getPositionX(),getPositionY() + DiffEntreBlancNoir);
 	}
-
+	
+	public Roi(Roi piece) {
+	
+	super(piece.getCouleur(), piece.getNom(), piece.getPositionX(), piece.getPositionY(), piece.getDeplacement1(), piece.getDeplacement2() );
+	}
 
 	
 	
