@@ -28,14 +28,19 @@ public class Joueur implements IJoueur {
 	public boolean jouerCoup(Echequier e, boolean enEchec) {	
 		System.out.println("Joueur " + this.couleur + " c'est a vous de jouer !");
 		int[] mouvement = new int[4];
+		boolean valide = false;
 		
-		//try
-		mouvement = saisie();
-		e.deplacement(mouvement, couleur);
-		//catch on recommence
-		
-		
-		return false;	
+		while (!valide) {
+			try {
+				mouvement = saisie();
+				e.deplacement(mouvement, couleur);
+				valide = true;
+			}catch (StringIndexOutOfBoundsException exception) {
+				valide = false;
+				System.out.println(exception);
+			}
+		}
+		return false;
 	}
 	
 	public String getNom() {

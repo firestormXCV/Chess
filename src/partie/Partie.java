@@ -25,6 +25,7 @@ public class Partie {
 		String vainqueur = null;
 		
 		while (Vainqueur() == null) {
+			
 			System.out.println(plateau.toString());
 			J1.jouerCoup(plateau, true);
 			if (Vainqueur() != null) 				
