@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import Piece.Couleur;
 import Piece.IPiece;
+import joueur.IA1;
 import joueur.IJoueur;
 import joueur.Joueur;
 import plateau.Echequier;
@@ -13,11 +14,33 @@ public class Partie {
 	private IJoueur J2;
 	private Echequier plateau;
 	
-	public Partie(){
+	public Partie(int choix1, int choix2){
+		
+		switch (choix1) {
+		case 1:
+			this.J1 = new Joueur("J1", Couleur.blanc);
+			break;
+		case 2:
+			this.J1 = new IA1("J1", Couleur.blanc);
+			break;
+		default:
+			this.J1 = new Joueur("J1", Couleur.blanc);			
+		}
+		
+		switch (choix2) {
+		case 1:
+			this.J2 = new Joueur("J2", Couleur.noir);
+			break;
+		case 2:
+			this.J2 = new IA1("J2", Couleur.noir);
+			break;
+		default:
+			this.J2 = new Joueur("J2", Couleur.noir);
+		}
+		
 		
 		this.plateau = new Echequier();
-		this.J1 = new Joueur("J1", Couleur.blanc);
-		this.J2 = new Joueur("J2", Couleur.noir);
+		
 		
 	}
 	

@@ -10,9 +10,6 @@ import plateau.Echequier;
 
 public class Joueur implements IJoueur {
 
-
-
-
 	private String nom;
 	private Couleur couleur;
 	
