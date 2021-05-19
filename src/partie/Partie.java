@@ -47,30 +47,63 @@ public class Partie {
 	public void Jouer() {
 		String vainqueur = null;
 		
-		while (Vainqueur() == null) {
+		
+		System.out.println(J1.getNom());
+		System.out.println(J2.getNom());
+		while (vainqueur == null) {
 			
 			System.out.println(plateau.toString());
 			J1.jouerCoup(plateau, true);
-			if (Vainqueur() != null) 				
+			vainqueur = Vainqueur();
+			if (vainqueur != null) 
 				break;
 			
+				
+			
 			System.out.println(plateau.toString());
-			J2.jouerCoup(plateau, true);				
-		};
-		System.out.println(plateau.toString());
-		vainqueur =  "Le vainqueur est " + Vainqueur().getNom();
-		System.out.println(vainqueur);
+			J2.jouerCoup(plateau, true);	
+			vainqueur = Vainqueur();
+		}
+		
+		System.out.println(plateau.toString() + "-----------");
+		System.out.println("Le vainqueur est " + vainqueur);
 	}
 	
 	/**
 	 * Cette methode permet de savoir si il y a echec et mat, et pour quel joueur.
 	 * @return Le Joueur gagnant ou null si aucun n'est vainqueur
 	 */
-	private IJoueur Vainqueur() {
+	private String Vainqueur() {
 		
 		plateau.actualiser();
 		
 		int[] CoordRoiNoir = plateau.getRoiCoord(Couleur.noir);
+		int nbNoir = 0;
+		int nbBlanc = 0;
+		
+		for (IPiece piece : plateau.getPion())
+			if (piece.getCouleur() == Couleur.blanc)
+				nbBlanc++;
+			else 
+				nbNoir++;
+		
+		if (nbNoir <= 1 && nbBlanc <= 1) {
+			System.out.println("nullll");
+			return "match null";
+		}
+			
+		else if (nbNoir <= 1) {
+			System.out.println(J2.getNom());
+			return J1.getNom();
+		}
+			
+		else if (nbBlanc <= 1) {
+			System.out.println(J1.getNom());
+			return J2.getNom();
+		}
+			
+		
+		
 		if (plateau.echec(CoordRoiNoir)) {
 			
 			Echequier plateauTest = new Echequier(plateau);
@@ -90,7 +123,9 @@ public class Partie {
 								
 							
 						}
-		return J1;
+		String J = J1.getNom();
+		System.out.println("roi noir en echec et mat vainqueur " + J);
+		return J1.getNom();
 		}
 		
 		int[] CoordRoiBlanc = plateau.getRoiCoord(Couleur.blanc);
@@ -113,7 +148,9 @@ public class Partie {
 							
 						
 					}
-			return J2;
+			String J = J2.getNom();
+			System.out.println("roi blanc en echec et mat vainqueur " + J);
+			return J2.getNom();
 		}
 		
 		

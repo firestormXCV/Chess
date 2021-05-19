@@ -32,9 +32,9 @@ public class Joueur implements IJoueur {
 				mouvement = saisie();
 				e.deplacement(mouvement, couleur);
 				valide = true;
-			}catch (StringIndexOutOfBoundsException exception) {
+			}catch (Exception exception) {
 				valide = false;
-				System.out.println(exception);
+				System.out.println("Erreur de saisie ou coup impossible merci de rejouer un coup différent");
 			}
 		}
 		return false;

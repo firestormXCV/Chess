@@ -22,6 +22,7 @@ public class IA1 implements IJoueur {
 	@Override
 	public boolean jouerCoup(Echequier e, boolean enEchec) {
 		System.out.println("Joueur " + this.couleur + " c'est a vous de jouer !");
+		e.actualiser();
 		actualiserCoup(e);
 		int[] mouvement = new int[4];
 		
@@ -33,9 +34,8 @@ public class IA1 implements IJoueur {
 					mouvement = saisie();
 					e.deplacement(mouvement, couleur);
 					valide = true;
-				}catch (StringIndexOutOfBoundsException exception) {
+				}catch (Exception exception) {
 					valide = false;
-					System.out.println(exception);
 				}
 			}
 		
@@ -44,8 +44,8 @@ public class IA1 implements IJoueur {
 
 	@Override
 	public String getNom() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return nom;
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class IA1 implements IJoueur {
 			
 			mouvement = coupDispo.get(i)[j][k];
 			
-			if ((mouvement[0] != 0 || mouvement[1] != 0) ||
+			if ((mouvement[0] != 0 || mouvement[1] != 0 || mouvement[2] != 0 || mouvement[3] != 0) &&
 				(mouvement[0] != mouvement[2] || mouvement[1] != mouvement[3])) {
 				loop = false;
 				
@@ -81,7 +81,7 @@ public class IA1 implements IJoueur {
 
 	public void actualiserCoup(Echequier e) {
 		
-		 
+		 coupDispo.removeAll(coupDispo);
 		ArrayList<int[][][]> tmpCoupDispo = e.getToutCoupPossible();
 		
 		

@@ -6,6 +6,7 @@ import Piece.Couleur;
 import Piece.IPiece;
 import Piece.Roi;
 import Piece.Tour;
+import exception.SaisieException;
 
 public class Echequier {
 	
@@ -88,7 +89,7 @@ public class Echequier {
 	        
 	}
 	
-	public void deplacement(int[] coup, Couleur couleur)  { //throw exception
+	public void deplacement(int[] coup, Couleur couleur)   throws SaisieException {
 		//ArrayList<int[][][]> toutCoupPossible = new ArrayList<>();	
 		int toutCoupPossible[][][] = new int[8][TailleCote][4];
 		actualiser();
@@ -126,13 +127,12 @@ public class Echequier {
 								
 								return;
 							}
-						} else {
-							//throw exception
 						}
 					}
 				}
 			}					
-		}								
+		}
+		throw new SaisieException();
 	}
 	/**
 	 * Cette methode permet de calculer tout les coups possible pour une piece sur l'echequier
