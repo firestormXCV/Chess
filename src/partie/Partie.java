@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import Piece.Couleur;
 import Piece.IPiece;
+import exception.SaisieException;
 import joueur.IA1;
 import joueur.IJoueur;
 import joueur.Joueur;
@@ -93,12 +94,12 @@ public class Partie {
 		}
 			
 		else if (nbNoir <= 1) {
-			System.out.println(J2.getNom());
+			System.out.println(J2.getNom()+ " n'a plus assez de pion");
 			return J1.getNom();
 		}
 			
 		else if (nbBlanc <= 1) {
-			System.out.println(J1.getNom());
+			System.out.println(J1.getNom()+ " n'a plus assez de pion");
 			return J2.getNom();
 		}
 			
@@ -108,23 +109,32 @@ public class Partie {
 			
 			Echequier plateauTest = new Echequier(plateau);
 			System.out.println("Roi noir en echec");
+			System.out.println(plateau.toString());
 			for (int[][][] coupPiece : plateau.getToutCoupPossible())
 				if (coupPiece[0][0][0] == CoordRoiNoir[0] && coupPiece[0][0][1] == CoordRoiNoir[1])				
 						for (IPiece piece : plateauTest.getPion()) {
 							if (piece.getCouleur() == Couleur.noir && piece.getNom().toLowerCase().equals("r")) {
 								for (int i = 0; i <= 8 - 1; i++ ) 	{
+									plateauTest = new Echequier(plateau);
 									plateauTest.actualiser();
-									piece.deplacer(coupPiece[i][1][2],coupPiece[i][1][3]);
+									try {
+										plateauTest.deplacement(coupPiece[i][1],Couleur.noir);
+									} catch (SaisieException e) {
+										continue;
+									}
+									//System.out.println(plateauTest.toString());
+									plateauTest.actualiser();
 									CoordRoiNoir = plateauTest.getRoiCoord(Couleur.noir);	
 									if (!plateauTest.echec(CoordRoiNoir))
 											return null;
+									
 								}
 							}
 								
 							
 						}
-		String J = J1.getNom();
-		System.out.println("roi noir en echec et mat vainqueur " + J);
+
+		System.out.println("Roi noir en echec et mat vainqueur " + J1.getNom());
 		return J1.getNom();
 		}
 		
@@ -133,13 +143,21 @@ public class Partie {
 			
 			Echequier plateauTest = new Echequier(plateau);
 			System.out.println("Roi blanc en echec");
+
 			for (int[][][] coupPiece : plateau.getToutCoupPossible())
 				if (coupPiece[0][0][0] == CoordRoiBlanc[0] && coupPiece[0][0][1] == CoordRoiBlanc[1])
 					for (IPiece piece : plateauTest.getPion()) {
 						if (piece.getCouleur() == Couleur.blanc && piece.getNom().toLowerCase().equals("r")) {
 							for (int i = 0; i <= 8 - 1; i++ ) 	{
+								plateauTest = new Echequier(plateau);
 								plateauTest.actualiser();
-								piece.deplacer(coupPiece[i][1][2],coupPiece[i][1][3]);
+								try {
+									plateauTest.deplacement(coupPiece[i][1],Couleur.blanc);
+								} catch (SaisieException e) {
+									continue;
+								}
+								//System.out.println(plateauTest.toString());
+								plateauTest.actualiser();
 								CoordRoiBlanc = plateauTest.getRoiCoord(Couleur.blanc);	
 								if (!plateauTest.echec(CoordRoiBlanc))
 										return null;
@@ -148,8 +166,8 @@ public class Partie {
 							
 						
 					}
-			String J = J2.getNom();
-			System.out.println("roi blanc en echec et mat vainqueur " + J);
+			
+			System.out.println("Roi blanc en echec et mat vainqueur " + J2.getNom());
 			return J2.getNom();
 		}
 		

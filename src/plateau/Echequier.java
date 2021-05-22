@@ -40,7 +40,7 @@ public class Echequier {
 			int y = 0;
 			x = piece.getPositionX();
 			y = piece.getPositionY();
-			damier[x][y].setOccupe(piece.getNom());
+			damier[x][y].setOcuppePar(piece.getNom());
 		}
 		
 		this.ToutCoupPlatau = new ArrayList<>();
@@ -122,8 +122,8 @@ public class Echequier {
 									}
 								}						
 								piece.deplacer(coup[2], coup[3]);
-								damier[coup[0]][coup[1]].setOccupe(" ");
-								damier[coup[2]][coup[3]].setOccupe(piece.getNom());
+								damier[coup[0]][coup[1]].setOcuppePar(" ");
+								damier[coup[2]][coup[3]].setOcuppePar(piece.getNom());
 								
 								return;
 							}
