@@ -17,6 +17,11 @@ public class Tour extends PieceAbs {
 		if (secondeTour)
 			setPosition(getPositionX() + DiffEntreBlancNoir, getPositionY());
 	}
+	
+	public Tour(Tour piece) {
+		
+		super(piece.getCouleur(), piece.getNom(), piece.getPositionX(), piece.getPositionY(), piece.getDeplacement1(), piece.getDeplacement2() );
+	}
 
 	@Override
 	public void attaquer(int posX, int posY) {
