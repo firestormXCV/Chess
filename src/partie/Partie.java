@@ -1,5 +1,7 @@
 package partie;
-
+/**
+ * Class Partie.java, c'est le deroulement d'une partie, avec les verification de victoire.
+ */
 import java.util.Scanner;
 
 import Piece.Couleur;
@@ -15,6 +17,11 @@ public class Partie {
 	private IJoueur J2;
 	private Echequier plateau;
 	
+	/**
+	 * En fonction du choix le joueur choisie de jouer une IA ou de jouer manuellement
+	 * @param choix1 Choix de J1
+	 * @param choix2 Choix de J2
+	 */
 	public Partie(int choix1, int choix2){
 		
 		switch (choix1) {
@@ -45,16 +52,19 @@ public class Partie {
 		
 	}
 	
+	/**
+	 * Methode permettant de jouer une partie complete
+	 */
 	public void Jouer() {
 		String vainqueur = null;
 		
 		
 		System.out.println(J1.getNom());
 		System.out.println(J2.getNom());
-		while (vainqueur == null) {
+		while (vainqueur == null) {			//Tant que la methode vainqueur() ne renvoie aucune string la partie ne s'arrete pas
 			
 			System.out.println(plateau.toString());
-			J1.jouerCoup(plateau, true);
+			J1.jouerCoup(plateau);
 			vainqueur = Vainqueur();
 			if (vainqueur != null) 
 				break;
@@ -62,7 +72,7 @@ public class Partie {
 				
 			
 			System.out.println(plateau.toString());
-			J2.jouerCoup(plateau, true);	
+			J2.jouerCoup(plateau);	
 			vainqueur = Vainqueur();
 		}
 		
@@ -72,51 +82,50 @@ public class Partie {
 	
 	/**
 	 * Cette methode permet de savoir si il y a echec et mat, et pour quel joueur.
-	 * @return Le Joueur gagnant ou null si aucun n'est vainqueur
+	 * @return Le Joueur gagnant null, ou une string disant match nul s'il n'y a aucun n'est vainqueur
 	 */
 	private String Vainqueur() {
 		
-		plateau.actualiser();
+		plateau.actualiser();	//Actualise la liste de tout les coups jouables sur l'echequier
 		
 		int[] CoordRoiNoir = plateau.getRoiCoord(Couleur.noir);
 		int nbNoir = 0;
 		int nbBlanc = 0;
 		
-		for (IPiece piece : plateau.getPion())
+		for (IPiece piece : plateau.getPion())	//Compte le nombre de piece noir et blanche restant
 			if (piece.getCouleur() == Couleur.blanc)
 				nbBlanc++;
 			else 
 				nbNoir++;
 		
-		if (nbNoir <= 1 && nbBlanc <= 1) {
-			System.out.println("nullll");
+		if (nbNoir <= 1 && nbBlanc <= 1) {	 //Si les 2 joueurs n'ont plus assez de pion pour continuer a jouer, que les 2 rois
 			return "match null";
 		}
 			
-		else if (nbNoir <= 1) {
+		else if (nbNoir <= 1) {				//Le joueur noir n'a plus que sont roi et ne peux donc plus jouer
 			System.out.println(J2.getNom()+ " n'a plus assez de pion");
 			return J1.getNom();
 		}
 			
-		else if (nbBlanc <= 1) {
+		else if (nbBlanc <= 1) {			//Le joueur blanc n'a plus que sont roi et ne peux donc plus jouer
 			System.out.println(J1.getNom()+ " n'a plus assez de pion");
 			return J2.getNom();
 		}
 			
 		
 		
-		if (plateau.echec(CoordRoiNoir)) {
+		if (plateau.echec(CoordRoiNoir)) {	//Si le joueur noir est en echec alors on verifie s'il y a mat
 			
-			Echequier plateauTest = new Echequier(plateau);
+			Echequier plateauTest = new Echequier(plateau);	//On créer un plateau de test afin de pouvoir faire des simulation de coup
 			System.out.println("Roi noir en echec");
-			System.out.println(plateau.toString());
+
 			for (int[][][] coupPiece : plateau.getToutCoupPossible())
-				if (coupPiece[0][0][0] == CoordRoiNoir[0] && coupPiece[0][0][1] == CoordRoiNoir[1])				
+				if (coupPiece[0][0][0] == CoordRoiNoir[0] && coupPiece[0][0][1] == CoordRoiNoir[1])		//Cherche parmit tout les coups possible ce qui correspondent au roi				
 						for (IPiece piece : plateauTest.getPion()) {
-							if (piece.getCouleur() == Couleur.noir && piece.getNom().toLowerCase().equals("r")) {
-								for (int i = 0; i <= 8 - 1; i++ ) 	{
-									plateauTest = new Echequier(plateau);
-									plateauTest.actualiser();
+							if (piece.getCouleur() == Couleur.noir && piece.getNom().toLowerCase().equals("r")) {	//On cherche quel piece est le roi su le plateau
+								for (int i = 0; i <= 8 - 1; i++ ) 	{				//On test pour tout les coups possible autour du roi, les 8 directions
+									plateauTest = new Echequier(plateau);			//On refait un plateau a chaque fois car le roi a peut etre bouger
+									plateauTest.actualiser();				
 									try {
 										plateauTest.deplacement(coupPiece[i][1],Couleur.noir);
 									} catch (SaisieException e) {
@@ -125,7 +134,7 @@ public class Partie {
 									//System.out.println(plateauTest.toString());
 									plateauTest.actualiser();
 									CoordRoiNoir = plateauTest.getRoiCoord(Couleur.noir);	
-									if (!plateauTest.echec(CoordRoiNoir))
+									if (!plateauTest.echec(CoordRoiNoir))		//S'il n'y a pas echec d'un 1 cas, alors ca veut dire qu'il n'y a pas mat, le roi n'est pas coincé
 											return null;
 									
 								}
@@ -139,7 +148,7 @@ public class Partie {
 		}
 		
 		int[] CoordRoiBlanc = plateau.getRoiCoord(Couleur.blanc);
-		if (plateau.echec(CoordRoiBlanc)) {
+		if (plateau.echec(CoordRoiBlanc)) {		//Comme precedement
 			
 			Echequier plateauTest = new Echequier(plateau);
 			System.out.println("Roi blanc en echec");

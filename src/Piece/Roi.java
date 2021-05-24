@@ -17,20 +17,9 @@ public class Roi extends PieceAbs {
 			setPosition(getPositionX(),getPositionY() + DiffEntreBlancNoir);
 	}
 	
-	public Roi(Roi piece) {
+	public Roi(Roi piece) {	// 2eme constructor corredpondant a la creation d'un plateau de test et donc la copie d'une piece qui est passe en parametre
 	
 	super(piece.getCouleur(), piece.getNom(), piece.getPositionX(), piece.getPositionY(), piece.getDeplacement1(), piece.getDeplacement2() );
 	}
-
-	
-	
-	@Override
-	public void attaquer(int posX, int posY) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-	
 
 }
