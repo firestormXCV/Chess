@@ -1,31 +1,30 @@
  package plateau;
-
+/**
+ * Cette classe n'est pas indispensable en l'etat, cependant elle serai necessaire si on voulait implementer plus de regle du jeu, tel que le pat par exemple
+ */
 public class Case {
 	
-	private String occupe; 	//Est ce qu'une piece occupe la case
-	private boolean menace; 	//Est ce qu'une piece adverse menace la case
-
+	private String occupePar; 	//Est ce qu'une piece occupe la case
 	
 	public Case() {
-		this.setOccupe(" ");
-		this.setMenace(false);
+		this.setOcuppePar(" ");
+	}
+	
+	public Case(Case c) {
+		this.setOcuppePar(c.getOccupe());
+
 	}
 
 	public String getOccupe() {
-		return occupe;
+		return occupePar;
 	}
 	
-	public boolean getMenace() {
-		return menace;
+
+
+	public void setOcuppePar(String occupe) {
+		this.occupePar = occupe;
 	}
 
-	public void setOccupe(String occupe) {
-		this.occupe = occupe;
-	}
-
-	public void setMenace(boolean menace) {
-		this.menace = menace;
-	}
 	
 	
 }

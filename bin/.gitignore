@@ -1,4 +1,6 @@
-/Jeu/
-/Piece/
+/joueur/
 /application/
 /partie/
+/plateau/
+/Piece/
+/exception/
