@@ -1,3 +1,14 @@
+/**
+ * @resume Bonjour ceci est le code de notre projet de BPO de période D, a savoir un jeu d'échec fonctionnel en java.
+ * Vous avez la possibilité de faire jouer 2 joueur entre eux, ou bien joueur contre IA ou encore IA conter IA.
+ * En ce qui concerne la saisie, pour jouer il faut saisir les coordonnée de base d'une piece puis celle de destination
+ * Ex: d7d8
+ * Les pieces blanche sont representees par ds lettre majuscule et donc les noirs en minuscules.
+ * 
+ * @author Thomas PASQUIER, Axel ROCHE
+ * 
+ */
+
 package application;
 
 import java.util.Scanner;
@@ -5,7 +16,11 @@ import java.util.Scanner;
 import partie.Partie;
 
 public class Appli {
-
+	
+	
+	/**
+	 * Ceci est le main de notre projet, il permet de choisir celon quel paramètre vous allez lancer une partie.
+	 */
 	public static void main(String[] args) {
 		
 		int choix1 = 0;

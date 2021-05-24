@@ -34,12 +34,7 @@ public abstract class PieceAbs implements IPiece {
 	
 	@Override
 	public void deplacer(int posX, int posY)  {//throw
-		if (!verifDeplacement(posX, posY)) { //verif useles ??
-			//throw exception			
-		}
-		setPosition(posX, posY);
-			
-			
+		setPosition(posX, posY);		
 	}
 	
 	
@@ -47,6 +42,7 @@ public abstract class PieceAbs implements IPiece {
 	/**
 	 *Renvoie tout les coups possibles a partir de la position actuelle de la pièce
 	 *Les coups sont calculé enfonction de la portées de la piece, sans prendre un compte le plateau.
+	 *Ils sont calcule pour les 8 direction (haut, bas, gauche, droit et les diagonals)
 	 *
 	 *Return: un tableau en 3D d'int.
 	 *[8]------>Tableau de max 8 cases, couvre les 8 trajectoire possible, (certaine sont donc nul pour certaine piece)
@@ -139,12 +135,6 @@ public abstract class PieceAbs implements IPiece {
 	public void setPosition(int posX, int posY) {				
 		this.positionX = posX;
 		this.positionY = posY;
-	}
-	
-	@Override
-	public boolean verifDeplacement(int posX, int posY) {
-		
-		return true;
 	}
 
 	public Couleur getCouleur() {
