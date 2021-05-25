@@ -21,14 +21,16 @@ class testPlateau {
 	}
 	
 	@Test
-	void testEchiquierQuiLèveSaisieException() throws SaisieException {
+	void testEchiquierQuiLeveSaisieException(){ 
 		Echequier EchiquierRéférence = new Echequier();
+		Echequier Echiquier2test = new Echequier();
 		int coup1[] = {0,7,1,4}; //Coup invalide pour une tour.
 		try {
-			EchiquierRéférence.deplacement(coup1, Couleur.blanc);
+			Echiquier2test.deplacement(coup1, Couleur.blanc);
 			fail ("Ca marche");
 		} catch(Exception e) {
-			assertEquals("La saisie n'est pas au format souhaité, ou n'est juste pas valide\nmerci de recommencer", e.getMessage());
 		}
+		assertEquals(Echiquier2test.toString(), EchiquierRéférence.toString());
+		// Le coup invalide a été refusé, la pièce reste au même endroit jusqu'au nouveau coup demandé à l'utilisateur.
 	}
 }
